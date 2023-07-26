@@ -1,0 +1,230 @@
+using UnityEngine;
+using TMPro;
+
+public class MiniGameDisIndex : MonoBehaviour
+{
+    [Header("DisasterManager")]
+    public float disasterIndex = 100f;
+    public float timer;
+    public int disPoints = 8;
+    public SlideBar disasterSlider;
+    public TextMeshProUGUI times;
+    public TextMeshProUGUI points;
+    public TextMeshProUGUI indexText;
+    public TextMeshProUGUI resultsIndex;
+    public GameObject DisasterMenuObject;
+    public GameObject DisasterMenu;
+    public GameObject ResultsMenu;
+    
+
+    [Header("Polution")]
+    public float polution100;
+    public float polution75;
+    public float polution50;
+    public float polution25;
+    public float polution0;
+    public TextMeshProUGUI polutionRes;
+
+    [Header("PolutionIncrease")]
+    public float polutionInc100;
+    public float polutionInc75;
+    public float polutionInc50;
+    public float polutionInc25;
+    public float polutionInc0;
+    public TextMeshProUGUI polutionIncRes;
+
+    [Header("PolutionPerYear")]
+    public int polutionPerYear100;
+    public int polutionPerYear75;
+    public int polutionPerYear50;
+    public int polutionPerYear25;
+    public int polutionPerYear0;
+    public TextMeshProUGUI polutionPerYearRes;
+
+    [Header("Enviroment")]
+    public float Enviroment100;
+    public float Enviroment75;
+    public float Enviroment50;
+    public float Enviroment25;
+    public float Enviroment0;
+    public TextMeshProUGUI enviromentRes;
+
+    [Header("EnviromentIncrease")]
+    public float EnviromentInc100;
+    public float EnviromentInc75;
+    public float EnviromentInc50;
+    public float EnviromentInc25;
+    public float EnviromentInc0;
+    public TextMeshProUGUI enviromentIncRes;
+
+    [Header("Happynes")]
+    public float Happines100;
+    public float Happines75;
+    public float Happines50;
+    public float Happines25;
+    public float Happines0;
+    public TextMeshProUGUI happinesRes;
+
+    [Header("HappynesIncrease")]
+    public float HappinesInc100;
+    public float HappinesInc75;
+    public float HappinesInc50;
+    public float HappinesInc25;
+    public float HappinesInc0;
+    public TextMeshProUGUI happinesIncRes;
+
+    public void Awake()
+    {
+        disasterSlider.SetMaxValue(disasterIndex);        
+    }
+
+    void Update()
+    {        
+        resultsIndex.text = disasterIndex.ToString();
+        indexText.text = disasterIndex.ToString();
+        points.text = disPoints.ToString();
+        times.text = timer.ToString();
+        disasterSlider.SetValue(disasterIndex);
+        timer -= Time.deltaTime;
+        if(timer <=0)
+        {
+            ResultsMenu.SetActive(true);
+            DisasterMenu.SetActive(false);
+            timer = 0;
+        }
+        if(disasterIndex <= 0)
+        {
+            disasterIndex = 0;
+        }
+        
+        if (timer <=0 && disasterIndex<=100 && disasterIndex>=75)
+        {
+            polutionRes.text = polution100.ToString();
+            polutionIncRes.text = polutionInc100.ToString();
+            polutionPerYearRes.text = polutionPerYear100.ToString();
+            enviromentRes.text = Enviroment100.ToString();
+            enviromentIncRes.text = EnviromentInc100.ToString();
+            happinesRes.text = Happines100.ToString();
+            happinesIncRes.text = HappinesInc100.ToString();
+        }
+        else if (timer <= 0 && disasterIndex <= 74 && disasterIndex >= 50)
+        {
+            polutionRes.text = polution75.ToString();
+            polutionIncRes.text = polutionInc75.ToString();
+            polutionPerYearRes.text = polutionPerYear75.ToString();
+            enviromentRes.text = Enviroment75.ToString();
+            enviromentIncRes.text = EnviromentInc75.ToString();
+            happinesRes.text = Happines75.ToString();
+            happinesIncRes.text = HappinesInc75.ToString();
+        }
+        else if (timer <= 0 && disasterIndex <= 49 && disasterIndex >= 25)
+        {
+            polutionRes.text = polution50.ToString();
+            polutionIncRes.text = polutionInc50.ToString();
+            polutionPerYearRes.text = polutionPerYear50.ToString();
+            enviromentRes.text = Enviroment50.ToString();
+            enviromentIncRes.text = EnviromentInc50.ToString();
+            happinesRes.text = Happines50.ToString();
+            happinesIncRes.text = HappinesInc50.ToString();
+        }
+        else if (timer <= 0 && disasterIndex <= 24 && disasterIndex >= 10)
+        {
+            polutionRes.text = polution25.ToString();
+            polutionIncRes.text = polutionInc25.ToString();
+            polutionPerYearRes.text = polutionPerYear25.ToString();
+            enviromentRes.text = Enviroment25.ToString();
+            enviromentIncRes.text = EnviromentInc25.ToString();
+            happinesRes.text = Happines25.ToString();
+            happinesIncRes.text = HappinesInc25.ToString();
+        }
+        else if (timer <= 0 && disasterIndex <= 9)
+        {
+            polutionRes.text = polution0.ToString();
+            polutionIncRes.text = polutionInc0.ToString();
+            polutionPerYearRes.text = polutionPerYear0.ToString();
+            enviromentRes.text = Enviroment0.ToString();
+            enviromentIncRes.text = EnviromentInc0.ToString();
+            happinesRes.text = Happines0.ToString();
+            happinesIncRes.text = HappinesInc0.ToString();
+        }
+
+    }
+
+    public void Disaster100()
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutions += polution100;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutionIncreast += polutionInc100;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutionPerYer += polutionPerYear100;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().enviroment -= Enviroment100;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().enviromentIncrease += EnviromentInc100;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().happines -= Happines100;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().happinesIncreast += HappinesInc100;
+    }
+    public void Disaster75()
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutions += polution75;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutionIncreast += polutionInc75;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutionPerYer += polutionPerYear75;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().enviroment -= Enviroment75;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().enviromentIncrease += EnviromentInc75;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().happines -= Happines75;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().happinesIncreast += HappinesInc75;
+    }
+
+    public void Disaster50()
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutions += polution50;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutionIncreast += polutionInc50;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutionPerYer += polutionPerYear50;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().enviroment -= Enviroment100;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().enviromentIncrease += EnviromentInc50;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().happines -= Happines100;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().happinesIncreast += HappinesInc50;
+    }
+
+    public void Disaster25()
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutions += polution25;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutionIncreast += polutionInc25;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutionPerYer += polutionPerYear25;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().enviroment -= Enviroment25;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().enviromentIncrease += EnviromentInc25;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().happines -= Happines25;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().happinesIncreast += HappinesInc25;
+    }
+    private void Disaster0()
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutions += polution0;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutionIncreast += polutionInc0;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().polutionPerYer += polutionPerYear0;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().enviroment -= Enviroment0;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().enviromentIncrease += EnviromentInc0;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().happines -= Happines0;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().happinesIncreast += HappinesInc0;
+    }
+    public void OkButton()
+    {
+        if (timer <= 0 && disasterIndex <= 100 && disasterIndex >= 75)
+        {
+            Disaster100();
+        }
+        else if (timer <= 0 && disasterIndex <= 74 && disasterIndex >= 50)
+        {
+            Disaster75();
+        }
+        else if (timer <= 0 && disasterIndex <= 49 && disasterIndex >= 25)
+        {
+            Disaster50();
+        }
+        else if (timer <= 0 && disasterIndex <= 24 && disasterIndex >= 10)
+        {
+            Disaster25();
+        }
+        else if (timer <= 0 && disasterIndex <= 9)
+        {
+            Disaster0();
+        }
+        Destroy(DisasterMenuObject);
+    }
+    
+}
