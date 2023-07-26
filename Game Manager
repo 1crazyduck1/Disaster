@@ -1,0 +1,205 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class GameManager : MonoBehaviour
+{
+    [Header("Polutin")]
+    public float polutions = 50f;
+    public float maximalPolution = 100f;
+    public float minimalPolution= 1f;
+    public float polutionIncreast = 0.001f;
+    public float polutionHappines;
+    public float polutionEnviroment;
+    public int polutionPerYer;
+    public SlideBar polutinSlider;
+    public SlideBar researchPolutionSlider;
+    public float pl;
+    public TextMeshProUGUI plText;
+
+    [Header("Happines")]
+    public float happines = 100f;
+    public float happinesIncreast = -0.01f;
+    public float happinesPolution = 0f;
+    public float happinesEnviroment = 0f;
+    public SlideBar happinesSlider;
+    public SlideBar researchHappinesSlider;
+    public float hp;
+    public TextMeshProUGUI hpText;
+
+    [Header("Enviroment")]
+    public float enviroment = 100f;
+    public float enviromentIncrease = 0.00f;
+    public float enviromentPolution = 0f;
+    public SlideBar enviromentSlidet;
+    public SlideBar researchEnviromentSlider;
+    public float en;
+    public TextMeshProUGUI enText;
+
+    [Header("Owerlay")]
+    public GameObject winingMenu;
+    public GameObject masterMenu;
+    
+
+    [Header("ResearchPoint")]
+    public int points;
+    public TextMeshProUGUI researchPoints;
+    public TextMeshProUGUI researchPointsRes;
+
+    private GameObject timer;
+
+
+    void Start()
+    {
+        polutinSlider.SetMaxValue(maximalPolution);
+        happinesSlider.SetMaxValue(happines);
+        enviromentSlidet.SetMaxValue(enviroment);
+        researchPolutionSlider.SetMaxValue(maximalPolution);
+        researchHappinesSlider.SetMaxValue(happines);
+        researchEnviromentSlider.SetMaxValue(enviroment);
+    }
+
+    public void Update()
+    {
+        researchPoints.text = points.ToString();
+        researchPointsRes.text = points.ToString();
+        plText.text = pl.ToString("0.0000");
+        hpText.text = hp.ToString("0.0000");
+        enText.text = en.ToString("0.0000");
+
+        PolutionUpdate();
+        polutinSlider.SetValue(polutions);
+        researchPolutionSlider.SetValue(polutions);
+        HappynesUpdate();
+        happinesSlider.SetValue(happines);
+        researchHappinesSlider.SetValue(happines);
+        EnviromentUpdate();
+        enviromentSlidet.SetValue(enviroment);
+        researchEnviromentSlider.SetValue(enviroment);
+        
+    }
+
+    
+
+    public void PolutionUpdate()
+    {
+        pl = (polutionIncreast + happinesPolution) + enviromentPolution;        
+        polutions += pl * Time.deltaTime;
+
+        if (polutions >= 100f)
+        {
+            polutions = 100f;
+        }
+        if (polutions <= 0f)
+        {
+            polutions = 0f;
+        }
+
+        if (polutions == maximalPolution)
+        {
+            winingMenu.SetActive(true);
+            masterMenu.SetActive(false);
+            Time.timeScale = 0;    
+            
+        }
+        if (polutions <= minimalPolution)
+        {
+            winingMenu.SetActive(true);
+            masterMenu.SetActive(false);
+            Time.timeScale = 0;
+        }
+        if (polutions >= 50f && polutions <= 70f)
+        {
+            polutionHappines = 0.01f;
+            polutionEnviroment = 0.01f;
+        }
+        if (polutions >= 70f && polutions <= 90f)
+        {
+            polutionHappines = 0.1f;
+            polutionEnviroment = 0.2f;
+        }
+        if (polutions >= 90f)
+        {
+            polutionHappines = 1f;
+            polutionEnviroment = 0.5f;
+        }
+        if(polutions <= 50f)
+        {
+            polutionHappines = -0.02f;
+            polutionEnviroment = -0.02f;
+        }
+        if(polutions <= 20f)
+        {
+            polutionHappines = -1f;
+            polutionEnviroment = -0.5f;
+        }
+        //enviroment -= polutionEnviroment * Time.deltaTime;
+    }
+
+    public void HappynesUpdate()
+    {
+        hp = (happinesIncreast + polutionHappines);       
+        happines -= hp * Time.deltaTime;
+        if(happines >= 100f)
+        {
+            happines = 100f;
+        }
+        if (happines <= 0f)
+        {
+            happines = 0f;
+        }
+        if (happines >= 70)
+        {
+            happinesPolution = 0f;
+            happinesEnviroment = 0f;
+        }
+        if (happines <= 70 && happines >= 50)
+        {
+            happinesPolution = 0.05f;
+            happinesEnviroment = 0.03f;
+        }
+        if (happines <= 50)
+        {
+            happinesPolution = 0.1f;
+            happinesEnviroment = 0.08f;
+        }
+       // enviroment -=  * Time.deltaTime;
+    }
+
+    public void EnviromentUpdate()
+    {
+        en = (enviromentIncrease + polutionEnviroment) + happinesEnviroment;
+        
+        enviroment -= en * Time.deltaTime;
+        
+        
+        if (enviroment >= 100)
+        {
+            enviroment = 100f;
+        }
+        if (enviroment <= 0)
+        {
+            enviroment = 0f;
+        }
+        if (enviroment <= 80f && enviroment >= 60f)
+        {
+            enviromentPolution = 0.05f;
+        }
+        if (enviroment <= 60f && enviroment >= 50f)
+        {
+            enviromentPolution = 0.08f;
+        }
+        if (enviroment <= 50f && enviroment >= 30f)
+        {
+            enviromentPolution = 0.1f;
+        }
+        if (enviroment <= 30f && enviroment >= 10f)
+        {
+            enviromentPolution = 1f;
+        }
+
+    }
+
+}
